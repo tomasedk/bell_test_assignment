@@ -16,18 +16,20 @@ interface IPassedProps extends React.Props<any> {
 
 const UModalInputCountainer: React.SFC<IPassedProps> = (props) => (
     <div className="container-fluid">
-        <form className="border container col-sm-3" style={{ marginTop: '10%', paddingBottom: '15px' }}>
+        <form className="border container col-sm-3" style={{ marginTop: '10%', paddingBottom: '15px', background: 'rgba(255, 255, 255, 1)' }}>
             <div className="container">
-                <div className="row text-center justify-content-center">
+                <div className="row text-center justify-content-center" style={{ padding: '15px' }}>
                     <h3>{props.Header}</h3>
                 </div>
                 {
                     (props.InputType === ModalActionTypes.DELETE) ?
-                        <div>Are you sure you want to delete the item?</div>
+                        <div className="row text-center justify-content-center" style={{ paddingBottom: '15px' }}>
+                            Are you sure you want to delete the item?
+                        </div>
                         : props.masHead.map((item, index) =>
                             <div key={index} className="form-group row">
-                                <label className="col-form-label col-sm-3">{getName(item)}: </label>
-                                <input type="text" className="form-control col-sm-9" placeholder={item} value={typeof props.InitialMas[index] === 'string' ?
+                                <label className="border-left col-form-label col-sm-5">{getName(item)}: </label>
+                                <input type="text" className="form-control col-sm-7" placeholder={item} value={typeof props.InitialMas[index] === 'string' ?
                                     props.InitialMas[index] : props.InitialMas[index].toString()}
                                     onChange={props.funcInput(item)} />
                             </div>
