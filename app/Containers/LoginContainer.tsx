@@ -30,9 +30,11 @@ const LoginContainer: React.SFC<IPassedProps> = (props) => (
                             props.loginStatus ?
                                 <div className="form-group">
                                     <h4>Login success, {props.username}!</h4>
-                                    <div className="row text-center justify-content-between">
-                                        <input className="btn btn-outline-warning" disabled={props.loading} type="button" value="LOGOUT" onClick={props.logout} />
-                                        <input className="btn btn-outline-primary" disabled={props.loading} type="button" value="TO COMPANIES" onClick={props.toComp} />
+                                    <div> {/*Если убрать этот блок, то будет баг, что pass будет заменяться на LOGOUT */}
+                                        <div className="row text-center justify-content-between">
+                                            <input className="btn btn-outline-warning" disabled={props.loading} type="button" value="LOGOUT" onClick={props.logout} />
+                                            <input className="btn btn-outline-primary" disabled={props.loading} type="button" value="TO COMPANIES" onClick={props.toComp} />
+                                        </div>
                                     </div>
                                 </div> :
                                 <div>
