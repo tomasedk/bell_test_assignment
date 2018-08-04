@@ -13,7 +13,7 @@ interface IPassedProps extends React.Props<any> {
     dataForDash: Array<Units>; //позже сюда надо будет добавить интерфейсы подразделений и сотрудника
     editRow: number;
     handleClick: Function;
-    toRoot: any;
+    toBack: any;
     onAdd: any;
     onEdit: any;
     onDelete: any;
@@ -63,7 +63,7 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
                     <div className="row justify-content-between">
                         <div className="col-sm">
                             <div className="row">
-                                <input className="btn btn-outline-primary" style={{ marginRight: '5px' }} type="button" value="Homepage" onClick={props.toRoot} />
+                                <input className="btn btn-outline-primary" style={{ marginRight: '5px' }} type="button" value="Back" onClick={props.toBack} />
                                 <input className="btn btn-outline-primary"
                                     disabled={(!props.loginStatus) || (props.editRow < 0) || (props.editRow >= props.dataForDash.length)}
                                     style={props.typeOfUnit !== UnitTypes.EMPLOYEE ? {} : { display: 'none' }}

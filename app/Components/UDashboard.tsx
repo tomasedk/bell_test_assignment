@@ -45,7 +45,10 @@ class UDashboard extends React.Component<TProps, IStateLocal> {
     }
 
     //возврат в корень
-    handleReturnToRoot = () => { history.push('/'); }
+    //handleReturnToRoot = () => { history.push('/'); }
+
+    //возврат назад
+    handleBack = () => { history.goBack() }
 
     //обработчик открытия модального окна.
     onModalAdd = () => { this.props.actions.onShowModal(ModalActionTypes.ADD); };
@@ -97,7 +100,7 @@ class UDashboard extends React.Component<TProps, IStateLocal> {
                         dataForDash={this.props.dataForDash}
                         editRow={editRow}
                         handleClick={this.onTableClickLine}
-                        toRoot={this.handleReturnToRoot}
+                        toBack={this.handleBack}
                         onAdd={this.onModalAdd}
                         onEdit={this.onModalEdit}
                         onDelete={this.onModalDelete}
