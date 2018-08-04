@@ -23,13 +23,13 @@ interface IPassedProps extends React.Props<any> {
 const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
     <div className="container">
         <div className="row text-left justify-content-center">
-            <div className="border container col-sm-8">
+            <div className="container col-sm-8">
                 <div className="container">
-                    <div className="row" style={{ marginTop: '10px', marginBottom: '5px'}}>
+                     <div className="row align-items-center" style={{ marginTop: '5px', marginBottom: '5px'}}>
                         <div className="col-sm-1" style={{ 'padding': '0px' }}>
                             <img src={require('../Sources/cat_sm_grey.png')} alt="Test" className="rounded-circle" />
                         </div>
-                        <div className="col-sm-10" style={{ 'padding': '15px' }}>
+                        <div className="col-sm-10">
                             <h3>{props.header}</h3>
                         </div>
                     </div>
@@ -63,7 +63,7 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
                     <div className="row justify-content-between">
                         <div className="col-sm">
                             <div className="row">
-                                <input className="btn btn-outline-primary" style={{ marginRight: '5px' }} type="button" value="Back" onClick={props.toBack} />
+                                <input className="btn btn-outline-primary" style={{ marginRight: '5px' }} type="button" value="BACK" onClick={props.toBack} />
                                 <input className="btn btn-outline-primary"
                                     disabled={(!props.loginStatus) || (props.editRow < 0) || (props.editRow >= props.dataForDash.length)}
                                     style={props.typeOfUnit !== UnitTypes.EMPLOYEE ? {} : { display: 'none' }}

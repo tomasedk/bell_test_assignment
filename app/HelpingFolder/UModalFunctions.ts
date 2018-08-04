@@ -37,3 +37,7 @@ export function getModalFunction(ModalType: string, add: Function, edit: Functio
         case ModalActionTypes.DELETE: return del;
     }
 }
+
+export function isNumeric(n: any) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}

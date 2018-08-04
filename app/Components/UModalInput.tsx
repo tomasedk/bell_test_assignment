@@ -8,7 +8,7 @@ import UModalInputCountainer from '../Containers/UModalInputCountainer'
 import { Actions, IDispatchProps } from '../Actions/Actions';
 import { DeptProps, EmplProps, ModalActionTypes, OrgProps } from '../HelpingFolder/Consts';
 import { IStoreState, Units } from '../HelpingFolder/Interfaces';
-import { getModalFunction, getModalHeader } from '../HelpingFolder/UModalFunctions';
+import { getModalFunction, getModalHeader, isNumeric } from '../HelpingFolder/UModalFunctions';
 import { getEmptyMas, getFullMas, getTableHeaderMas, masToObj } from '../HelpingFolder/UUnitFunctions';
 
 interface IStateProps {
@@ -59,16 +59,17 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
         let currentEnv = this;
 
         return function (event: React.FormEvent<HTMLInputElement>) {
+            const tmpVal = event.currentTarget.value;
             switch (currentInput) {
-                case OrgProps.ID: currentEnv.setState({ 'id': +event.currentTarget.value }); break;
-                case OrgProps.INN: currentEnv.setState({ 'inn': +event.currentTarget.value }); break;
-                case OrgProps.ADRESS: currentEnv.setState({ 'adress': event.currentTarget.value }); break;
-                case OrgProps.NAME: currentEnv.setState({ 'name': event.currentTarget.value }); break;
+                case OrgProps.ID: if (isNumeric(tmpVal)) {currentEnv.setState({ 'id': +tmpVal })}; break;
+                case OrgProps.INN: if (isNumeric(tmpVal)) { currentEnv.setState({ 'inn': +tmpVal })}; break;
+                case OrgProps.ADRESS: currentEnv.setState({ 'adress': tmpVal }); break;
+                case OrgProps.NAME: currentEnv.setState({ 'name': tmpVal }); break;
 
-                case DeptProps.ID_ORG: currentEnv.setState({ 'parent': +event.currentTarget.value }); break;
-                case DeptProps.PHONE_NUMBER: currentEnv.setState({ 'phone': +event.currentTarget.value }); break;
+                case DeptProps.ID_ORG: if (isNumeric(tmpVal)) { currentEnv.setState({ 'parent': +tmpVal })}; break;
+                case DeptProps.PHONE_NUMBER: if (isNumeric(tmpVal)) { currentEnv.setState({ 'phone': +tmpVal })}; break;
 
-                case EmplProps.POSITION: currentEnv.setState({ 'position': event.currentTarget.value }); break;
+                case EmplProps.POSITION: currentEnv.setState({ 'position': tmpVal }); break;
             }
         }
     };

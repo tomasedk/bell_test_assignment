@@ -5,7 +5,7 @@ import { IOrganistion, Units } from './Interfaces';
 export function getFullMas(typeOfUnit: string, object: any): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
     switch (typeOfUnit) {
-        case UnitTypes.ORGANISATION: return [/*object.id,*/ object.name, object.adress, object.inn];
+        case UnitTypes.ORGANISATION: return [object.id, object.name, object.adress, object.inn];
         case UnitTypes.DEPARTMENT: return [object.id, object.parent, object.name, object.phone];
         case UnitTypes.EMPLOYEE: return [object.id, object.parent, object.name, object.adress, object.position];
     }
@@ -35,7 +35,7 @@ export function getFields(Unit: any): Array<any> {
 
 export function getTableHeaderMas(typeOfUnit: string): Array<any> {
     switch (typeOfUnit) {
-        case (UnitTypes.ORGANISATION): return [/*OrgProps.ID, */OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN]; break;
+        case (UnitTypes.ORGANISATION): return [OrgProps.ID, OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN]; break;
         case (UnitTypes.DEPARTMENT): return [DeptProps.ID, DeptProps.ID_ORG, DeptProps.NAME, DeptProps.PHONE_NUMBER]; break;
         case (UnitTypes.EMPLOYEE): return [EmplProps.ID, EmplProps.ID_DEPT, EmplProps.NAME, EmplProps.ADRESS, EmplProps.POSITION]; break;
     }
