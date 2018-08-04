@@ -72,7 +72,8 @@ export class Actions {
                 history.push('/orgs');
                 //Список организаций
                 //fetch('http://www.mocky.io/v2/5b62040e3000007e1c6a4467') //id - number
-                fetch('http://www.mocky.io/v2/5b65c0f23300001000f6aa5f')
+                //fetch('http://www.mocky.io/v2/5b65c0f23300001000f6aa5f') //id
+                fetch('http://www.mocky.io/v2/5b65d5f73300007800f6aa71')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();
@@ -93,7 +94,8 @@ export class Actions {
 
                 //Список подразделений
                 //fetch('http://www.mocky.io/v2/5b63178230000062096502f1') //id - number
-                fetch('http://www.mocky.io/v2/5b65c1403300009a0df6aa61')
+                //fetch('http://www.mocky.io/v2/5b65c1403300009a0df6aa61')
+                fetch('http://www.mocky.io/v2/5b65dacb3300006100f6aa7c')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();
@@ -115,7 +117,8 @@ export class Actions {
 
                 //Список сотрудников
                 //fetch('http://www.mocky.io/v2/5b63140630000062006502e1') //id - number
-                fetch('http://www.mocky.io/v2/5b65c17e3300003810f6aa62')
+                //fetch('http://www.mocky.io/v2/5b65c17e3300003810f6aa62')
+                fetch('http://www.mocky.io/v2/5b65dbca3300006100f6aa81')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();

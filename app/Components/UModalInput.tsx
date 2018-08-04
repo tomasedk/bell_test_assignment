@@ -45,7 +45,7 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
 
         const tmpUnit = props.selectedUnit;////нужно ли?
         //console.log('YOOOOOOOO', this.props.typeOfUnit);
-        console.log('hello! ', this.props.parentId);
+        //console.log('hello! ', this.props.parentId);
 
         if (props.modalReducer.showModal === ModalActionTypes.ADD) {
             this.state = masToObj(this.props.typeOfUnit, getEmptyMas(this.props.parentId, this.props.typeOfUnit));
