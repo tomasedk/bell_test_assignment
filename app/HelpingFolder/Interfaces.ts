@@ -15,7 +15,7 @@ export interface IStoreLoginState {
 
 export interface IOrganistion {
     discriminator?: UnitTypes.ORGANISATION,
-    id: number,
+    id: string,
     name: string,
     adress: string,
     inn: number,
@@ -23,16 +23,16 @@ export interface IOrganistion {
 
 export interface IDepartment {
     discriminator?: UnitTypes.DEPARTMENT,
-    id: number,
-    parent: number,
+    id: string,
+    parent: string,
     name: string,
     phone: number,
 }
 
 export interface IEmployee {
     discriminator?: UnitTypes.EMPLOYEE,
-    id: number,
-    parent: number,
+    id: string,
+    parent: string,
     name: string, //FIO
     adress: string,
     position: string,

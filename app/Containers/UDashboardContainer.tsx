@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import { UnitTypes } from '../HelpingFolder/Consts';
 import { Units } from '../HelpingFolder/Interfaces';
-import { getFullMas, getName, getTableHeaderMas, nextUnit } from '../HelpingFolder/UUnitFunctions';
-
-declare function require(path: string): any;
+import { getFullMasToShow, getName, getTableHeaderMas, nextUnit } from '../HelpingFolder/UUnitFunctions';
 
 interface IPassedProps extends React.Props<any> {
     header: string;
@@ -26,9 +24,6 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
             <div className="container col-sm-8">
                 <div className="container">
                      <div className="row align-items-center" style={{ marginTop: '5px', marginBottom: '5px'}}>
-                        <div className="col-sm-1" style={{ 'padding': '0px' }}>
-                            <img src={require('../Sources/cat_sm_grey.png')} alt="Test" className="rounded-circle" />
-                        </div>
                         <div className="col-sm-10">
                             <h3>{props.header}</h3>
                         </div>
@@ -50,7 +45,7 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
                                 return (
                                     <tr key={index} className={(props.editRow === index) ? 'bg-primary' : ''} onClick={props.handleClick(index)}>
                                         {
-                                            getFullMas(elem.discriminator, elem).map((item: any, indexInner: number) => {
+                                            getFullMasToShow(elem.discriminator, elem).map((item: any, indexInner: number) => {
                                                 return (<td key={indexInner}>{item}</td>);
                                             })
                                         }

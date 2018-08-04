@@ -27,7 +27,7 @@ export class Actions {
         this.onHideModal();
     }
 
-    onEditUnit = (typeOfUnit: string, unitIdToEdit: number, unitToCreate: Array<string | number>) => {
+    onEditUnit = (typeOfUnit: string, unitIdToEdit: string, unitToCreate: Array<string | number>) => {
         let tmp: Object = {
             'unitIdToEdit': unitIdToEdit,
             newUnit: masToObj(typeOfUnit, unitToCreate),
@@ -37,7 +37,7 @@ export class Actions {
         this.onHideModal();
     }
 
-    onDeleteUnit = (typeOfUnit: string, id: number) => {
+    onDeleteUnit = (typeOfUnit: string, id: string) => {
         this.dispatch({ type: `${typeOfUnit.toUpperCase()}${UnitActionTypes.DELETE}`, payload: id });
         this.onHideModal();
     }
@@ -71,7 +71,8 @@ export class Actions {
                 this.dispatch({ type: `${LoginActionTypes.LOGIN}${AsyncActionTypes.SUCCESS}`, payload: data });
                 history.push('/orgs');
                 //Список организаций
-                fetch('http://www.mocky.io/v2/5b62040e3000007e1c6a4467')
+                //fetch('http://www.mocky.io/v2/5b62040e3000007e1c6a4467') //id - number
+                fetch('http://www.mocky.io/v2/5b65c0f23300001000f6aa5f')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();
@@ -91,7 +92,8 @@ export class Actions {
                     });
 
                 //Список подразделений
-                fetch('http://www.mocky.io/v2/5b63178230000062096502f1')
+                //fetch('http://www.mocky.io/v2/5b63178230000062096502f1') //id - number
+                fetch('http://www.mocky.io/v2/5b65c1403300009a0df6aa61')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();
@@ -112,7 +114,8 @@ export class Actions {
                     });
 
                 //Список сотрудников
-                fetch('http://www.mocky.io/v2/5b63140630000062006502e1')
+                //fetch('http://www.mocky.io/v2/5b63140630000062006502e1') //id - number
+                fetch('http://www.mocky.io/v2/5b65c17e3300003810f6aa62')
                     .then(response => {
                         if (response.status === 200) {
                             return response.json();

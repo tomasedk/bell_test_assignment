@@ -19,7 +19,7 @@ export default function deptReducer(state: IStoreDeptState = initialState.state,
         case `${UnitTypes.DEPARTMENT.toUpperCase()}${UnitActionTypes.EDIT}`:
             let newDeptDataEdit: Array<any> = [];
             for (let i = 0; i < state.deptData.length; i++) {
-                newDeptDataEdit.push((+action.payload.unitIdToEdit === state.deptData[i].id) ? action.payload.newUnit : state.deptData[i]);
+                newDeptDataEdit.push((action.payload.unitIdToEdit === state.deptData[i].id) ? action.payload.newUnit : state.deptData[i]);
             }
             return { ...state, deptData: newDeptDataEdit };
 

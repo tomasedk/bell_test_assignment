@@ -37,7 +37,7 @@ class Employees extends React.Component<TProps, {}> {
     }
 
     render() {
-        const parent: number = +this.props.match.params.id;
+        const parent: string = this.props.match.params.id;
         let companyDept: string = 'UNKNOWN';
 
         for (let i = 0; i < this.props.deptReducer.deptData.length; i++) {
@@ -56,6 +56,7 @@ class Employees extends React.Component<TProps, {}> {
         return (
             <div>
                 <UDashboard
+                    parentId={parent}
                     dataForDash={mas}
                     header={Header}
                     typeOfUnit={UnitTypes.EMPLOYEE} />

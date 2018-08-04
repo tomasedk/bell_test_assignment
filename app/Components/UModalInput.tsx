@@ -9,7 +9,7 @@ import { Actions, IDispatchProps } from '../Actions/Actions';
 import { DeptProps, EmplProps, ModalActionTypes, OrgProps } from '../HelpingFolder/Consts';
 import { IStoreState, Units } from '../HelpingFolder/Interfaces';
 import { getModalFunction, getModalHeader, isNumeric } from '../HelpingFolder/UModalFunctions';
-import { getEmptyMas, getFullMas, getTableHeaderMas, masToObj } from '../HelpingFolder/UUnitFunctions';
+import { getEmptyMas, getFullMas, getFullMasToShow, getTableHeaderMas, masToObj } from '../HelpingFolder/UUnitFunctions';
 
 interface IStateProps {
     modalReducer: {
@@ -20,16 +20,17 @@ interface IStateProps {
 interface IPassedProps extends React.Props<any> {
     selectedUnit: Units;
     typeOfUnit: string;
+    parentId: string
 }
 
 interface IStateLocal {
     discriminator?: string;
-    id: number, //ID в модальном окне
+    id: string, //ID в модальном окне
     inn?: number, //INN в модальном окне
     adress?: string, //ADR в модальном окне
     name: string //NAME в модальном окне
 
-    parent?: number;
+    parent?: string;
     phone?: number;
 
     position?: string;
@@ -44,10 +45,12 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
 
         const tmpUnit = props.selectedUnit;////нужно ли?
         //console.log('YOOOOOOOO', this.props.typeOfUnit);
+        console.log('hello! ', this.props.parentId);
+
         if (props.modalReducer.showModal === ModalActionTypes.ADD) {
-            this.state = masToObj(this.props.typeOfUnit, getEmptyMas(this.props.typeOfUnit));
+            this.state = masToObj(this.props.typeOfUnit, getEmptyMas(this.props.parentId, this.props.typeOfUnit));
         } else if (typeof tmpUnit !== 'undefined') {
-            this.state = masToObj(this.props.typeOfUnit, getFullMas(this.props.typeOfUnit, tmpUnit));
+            this.state = masToObj(this.props.typeOfUnit, getFullMas( this.props.typeOfUnit, tmpUnit));
         } else { //А это неприятная ситуация, когда получается обращение к undefined
             this.onModalClose(); console.log('ATTENTION!!!'); //не удалять этот лог
         };
@@ -61,12 +64,12 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
         return function (event: React.FormEvent<HTMLInputElement>) {
             const tmpVal = event.currentTarget.value;
             switch (currentInput) {
-                case OrgProps.ID: if (isNumeric(tmpVal)) {currentEnv.setState({ 'id': +tmpVal })}; break;
+                case OrgProps.ID: {currentEnv.setState({ 'id': tmpVal })}; break;
                 case OrgProps.INN: if (isNumeric(tmpVal)) { currentEnv.setState({ 'inn': +tmpVal })}; break;
                 case OrgProps.ADRESS: currentEnv.setState({ 'adress': tmpVal }); break;
                 case OrgProps.NAME: currentEnv.setState({ 'name': tmpVal }); break;
 
-                case DeptProps.ID_ORG: if (isNumeric(tmpVal)) { currentEnv.setState({ 'parent': +tmpVal })}; break;
+                case DeptProps.ID_ORG: { currentEnv.setState({ 'parent': tmpVal })}; break;
                 case DeptProps.PHONE_NUMBER: if (isNumeric(tmpVal)) { currentEnv.setState({ 'phone': +tmpVal })}; break;
 
                 case EmplProps.POSITION: currentEnv.setState({ 'position': tmpVal }); break;
@@ -105,7 +108,8 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
                     <UModalInputCountainer
                         Header={getModalHeader(this.props.modalReducer.showModal, this.props.typeOfUnit, this.state.name, this.props.selectedUnit)}
                         InputType={this.props.modalReducer.showModal}
-                        InitialMas={getFullMas(this.props.typeOfUnit, this.state)}
+                        // InitialMas={getFullMas(this.props.typeOfUnit, this.state)}
+                        InitialMas={getFullMasToShow(this.props.typeOfUnit, this.state)}
                         masHead={getTableHeaderMas(this.props.typeOfUnit)}
                         funcInput={this.onModalChangeInput}
                         funcClose={this.onModalClose}

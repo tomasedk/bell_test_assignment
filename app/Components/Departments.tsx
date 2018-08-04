@@ -34,10 +34,12 @@ class Departments extends React.Component<TProps, {}> {
     }
 
     render() {
-        const parent: number = +this.props.match.params.id;
+        const parent: string = this.props.match.params.id.toString();
         let companyName: string ='UNKNOWN';
+        //console.log(this.props.orgReducer, ' ', this.props.match.params);
         for (let i=0;i<this.props.orgReducer.orgData.length;i++) {
             if (this.props.orgReducer.orgData[i].id === parent) {
+                //console.log(this.props.orgReducer.orgData[i].id, ' ', parent);
                 companyName = this.props.orgReducer.orgData[i].name;
             }
         }
@@ -51,6 +53,7 @@ class Departments extends React.Component<TProps, {}> {
         return (
             <div>
                 <UDashboard
+                    parentId={parent}
                     dataForDash={mas}
                     header={Header}
                     typeOfUnit={UnitTypes.DEPARTMENT}/>

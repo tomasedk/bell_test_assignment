@@ -31,6 +31,7 @@ class Companies extends React.Component<TProps, {}> {
         return (
             <div>
                 <UDashboard
+                    parentId={'0'}
                     dataForDash={this.props.orgReducer.orgData}
                     header={Header}
                     typeOfUnit={UnitTypes.ORGANISATION} />

@@ -1,9 +1,34 @@
 import { DeptProps, EmplProps, OrgProps, UnitTypes } from './Consts';
 import { IOrganistion, Units } from './Interfaces';
 
+declare function require(path: string): any;
+const uuidv4 = require('uuid/v4');
+
+export function getTableHeaderMas(typeOfUnit: string): Array<any> {
+    switch (typeOfUnit) {
+        case (UnitTypes.ORGANISATION): return [/*OrgProps.ID,*/ OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN]; break;
+        case (UnitTypes.DEPARTMENT): return [/*DeptProps.ID,  DeptProps.ID_ORG, */DeptProps.NAME, DeptProps.PHONE_NUMBER]; break;
+        case (UnitTypes.EMPLOYEE): return [/*EmplProps.ID,  EmplProps.ID_DEPT,*/ EmplProps.NAME, EmplProps.ADRESS, EmplProps.POSITION]; break;
+    }
+}
+//getTableHeaderMas и getFullMasToShow обязательно должны возвращать массивы одинковой длинны, потому что оба
+//  помогают в отражении данных в таблице и ModalInput
+
 //Функция возвращает массив, состоящий из данных, которые необходимо отобразить в таблице
-export function getFullMas(typeOfUnit: string, object: any): Array<any> {
+export function getFullMasToShow( typeOfUnit: string, object: any): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
+    //console.log('getFullMas', object);
+    switch (typeOfUnit) {
+        case UnitTypes.ORGANISATION: return [object.name, object.adress, object.inn];
+        case UnitTypes.DEPARTMENT: return [object.name, object.phone];
+        case UnitTypes.EMPLOYEE: return [object.name, object.adress, object.position];
+    }
+    return [];
+}
+//Функция возвращает массив, состоящий из данных, которые необходимо отобразить в таблице
+export function getFullMas( typeOfUnit: string, object: any): Array<any> {
+    //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
+    //console.log('getFullMas', object);
     switch (typeOfUnit) {
         case UnitTypes.ORGANISATION: return [object.id, object.name, object.adress, object.inn];
         case UnitTypes.DEPARTMENT: return [object.id, object.parent, object.name, object.phone];
@@ -12,12 +37,16 @@ export function getFullMas(typeOfUnit: string, object: any): Array<any> {
     return [];
 }
 //получает тип<string>, позвращает пустой массив нужного вида
-export function getEmptyMas(typeOfUnit: string): Array<any> {
+export function getEmptyMas(parentId: string, typeOfUnit: string): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
+    //console.log('getEmptyMas', typeOfUnit);
     switch (typeOfUnit) {
-        case UnitTypes.ORGANISATION: return [0, '', '', 0];
-        case UnitTypes.DEPARTMENT: return [0, 0, '', 0];
-        case UnitTypes.EMPLOYEE: return [0, 0, '', '', ''];
+        // case UnitTypes.ORGANISATION: return ['', '', '', 0]; //здесь ввести айдишники
+        // case UnitTypes.DEPARTMENT: return ['', 0, '', 0];
+        // case UnitTypes.EMPLOYEE: return ['', 0, '', '', ''];
+        case UnitTypes.ORGANISATION: return [uuidv4(), '', '', 0]; //здесь ввести айдишники
+        case UnitTypes.DEPARTMENT: return [uuidv4(), parentId, '', 0];
+        case UnitTypes.EMPLOYEE: return [uuidv4(), parentId, '', '', ''];
     }
     return [];
 }
@@ -31,14 +60,6 @@ export function getFields(Unit: any): Array<any> {
         case UnitTypes.EMPLOYEE: return ['id', 'parent', 'name', 'adress', 'position'];
     }
     return [];
-}
-
-export function getTableHeaderMas(typeOfUnit: string): Array<any> {
-    switch (typeOfUnit) {
-        case (UnitTypes.ORGANISATION): return [OrgProps.ID, OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN]; break;
-        case (UnitTypes.DEPARTMENT): return [DeptProps.ID, DeptProps.ID_ORG, DeptProps.NAME, DeptProps.PHONE_NUMBER]; break;
-        case (UnitTypes.EMPLOYEE): return [EmplProps.ID, EmplProps.ID_DEPT, EmplProps.NAME, EmplProps.ADRESS, EmplProps.POSITION]; break;
-    }
 }
 
 export function getName(typeOfParam: string): string {
@@ -75,7 +96,8 @@ export function masToObj(typeOfUnit: string, mas: Array<string | number>): Units
         case UnitTypes.ORGANISATION:
             newUnit = {
                 discriminator: UnitTypes.ORGANISATION,
-                id: +mas[0],
+                id: mas[0].toString(),
+                //id: uuidv4(),
                 name: mas[1].toString(),
                 adress: mas[2].toString(),
                 inn: +mas[3],
@@ -84,8 +106,9 @@ export function masToObj(typeOfUnit: string, mas: Array<string | number>): Units
         case UnitTypes.DEPARTMENT:
             newUnit = {
                 discriminator: UnitTypes.DEPARTMENT,
-                id: +mas[0],
-                parent: +mas[1],
+                id: mas[0].toString(),
+                //id: uuidv4(),
+                parent: mas[1].toString(),//разобраться с .toString()
                 name: mas[2].toString(),
                 phone: +mas[3],
             };
@@ -93,8 +116,9 @@ export function masToObj(typeOfUnit: string, mas: Array<string | number>): Units
         case UnitTypes.EMPLOYEE:
             newUnit = {
                 discriminator: UnitTypes.EMPLOYEE,
-                id: +mas[0],
-                parent: +mas[1],
+                id: mas[0].toString(),
+                //id: uuidv4(),
+                parent: mas[1].toString(),
                 name: mas[2].toString(),
                 adress: mas[3].toString(),
                 position: mas[4].toString(),

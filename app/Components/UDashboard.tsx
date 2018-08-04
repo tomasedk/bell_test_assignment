@@ -24,6 +24,7 @@ interface IPassedProps extends React.Props<any> {
     header: string;
     dataForDash: Array<any>; //скорее всего можно будет Unit
     typeOfUnit: string;
+    parentId: string; //Id родителя
 }
 
 type TProps = IDispatchProps & IStateProps & IPassedProps;
@@ -64,6 +65,7 @@ class UDashboard extends React.Component<TProps, IStateLocal> {
 
     //обработчик нажатия на строку в таблице. Задает selectedRowId, editRow
     onTableClickLine = (index: number) => {
+        //console.log(this.props.match.params.id.toString());
         let currentEnv = this;
         let currentMas = this.props.dataForDash[index];
         return function () {
@@ -89,7 +91,10 @@ class UDashboard extends React.Component<TProps, IStateLocal> {
         return (
             <div>
                 {this.props.modalReducer.showModal !== ModalActionTypes.HIDE ?
-                        <UModalInput selectedUnit={this.props.dataForDash[editRow !== -1 ? editRow : 0]} typeOfUnit={this.props.typeOfUnit} />
+                        <UModalInput
+                            parentId={this.props.parentId}
+                            selectedUnit={this.props.dataForDash[editRow !== -1 ? editRow : 0]}
+                            typeOfUnit={this.props.typeOfUnit} />
                         : null}
 
                 <div className="Content">

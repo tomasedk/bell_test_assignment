@@ -1,6 +1,9 @@
 import { UnitActionTypes, UnitTypes } from '../HelpingFolder/Consts';
 import { IActionType, IStoreOrgState } from '../HelpingFolder/Interfaces';
 
+// declare function require(path: string): any;
+// const uuidv4 = require('uuid/v4');
+
 const initialState = {
     get state(): IStoreOrgState {
         return {
@@ -20,7 +23,7 @@ export default function orgReducer(state: IStoreOrgState = initialState.state, a
             let newOrgDataEdit: Array<any> = [];
             for (let i = 0; i < state.orgData.length; i++) {
                 //console.log('compare: ', +action.payload.unitIdToEdit === state.orgData[i].id)
-                newOrgDataEdit.push((+action.payload.unitIdToEdit === state.orgData[i].id) ? action.payload.newUnit : state.orgData[i]);
+                newOrgDataEdit.push((action.payload.unitIdToEdit === state.orgData[i].id) ? action.payload.newUnit : state.orgData[i]);
             }
             //console.log('new state of STORE: ', newOrgDataEdit);
             return { ...state, orgData: newOrgDataEdit };

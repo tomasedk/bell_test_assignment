@@ -6,7 +6,7 @@ import { Companies } from '../Components/Companies'
 import { Departments } from '../Components/Departments';
 import { Employees } from '../Components/Employees';
 import { Login } from '../Components/LoginForm';
-import NavigationBar from '../Components/NavigationBar';
+import { NavigationBar } from '../Components/NavigationBar';
 import NotFound from '../Containers/NotFound';
 
 const AppRouter: any = () => (
