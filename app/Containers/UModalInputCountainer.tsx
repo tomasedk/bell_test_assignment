@@ -7,6 +7,7 @@ import { getName } from '../HelpingFolder/UUnitFunctions';
 interface IPassedProps extends React.Props<any> {
     Header: string; //То, что будет написано в заголовке модального окна
     InputType: string;
+    typeOfUnit: string
     InitialMas: Array<string | number>;
     masHead: Array<any>;
     funcInput: Function; //функция, обрабатывающая ввод в Input
@@ -28,7 +29,7 @@ const UModalInputCountainer: React.SFC<IPassedProps> = (props) => (
                         </div>
                         : props.masHead.map((item, index) =>
                             <div key={index} className="form-group row">
-                                <label className="border-left col-form-label col-sm-5">{getName(item)}: </label>
+                                <label className="border-left col-form-label col-sm-5">{getName(props.typeOfUnit, item)}: </label>
                                 <input type="text" className="form-control col-sm-7" placeholder={item} value={typeof props.InitialMas[index] === 'string' ?
                                     props.InitialMas[index] : props.InitialMas[index].toString()}
                                     onChange={props.funcInput(item)} />

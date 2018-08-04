@@ -15,7 +15,7 @@ export function getTableHeaderMas(typeOfUnit: string): Array<any> {
 //  помогают в отражении данных в таблице и ModalInput
 
 //Функция возвращает массив, состоящий из данных, которые необходимо отобразить в таблице
-export function getFullMasToShow( typeOfUnit: string, object: any): Array<any> {
+export function getFullMasToShow(typeOfUnit: string, object: any): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
     //console.log('getFullMas', object);
     switch (typeOfUnit) {
@@ -26,7 +26,7 @@ export function getFullMasToShow( typeOfUnit: string, object: any): Array<any> {
     return [];
 }
 //Функция возвращает массив, состоящий из данных, которые необходимо отобразить в таблице
-export function getFullMas( typeOfUnit: string, object: any): Array<any> {
+export function getFullMas(typeOfUnit: string, object: any): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
     //console.log('getFullMas', object);
     switch (typeOfUnit) {
@@ -62,17 +62,28 @@ export function getFields(Unit: any): Array<any> {
     return [];
 }
 
-export function getName(typeOfParam: string): string {
-    switch (typeOfParam) {
-        case OrgProps.ID: return 'Id';
-        case OrgProps.INN: return 'ИНН';
-        case OrgProps.ADRESS: return 'Адрес';
-        case OrgProps.NAME: return 'Наименование';
+export function getName(typeOfUnit: string, typeOfParam: string): string {
 
-        case DeptProps.ID_ORG: return 'Id родителя';
-        case DeptProps.PHONE_NUMBER: return 'Номер';
+    if (typeOfUnit === UnitTypes.ORGANISATION) {
+        switch (typeOfParam) {
+            case OrgProps.INN: return 'ИНН';
+            case OrgProps.ADRESS: return 'Адрес';
+            case OrgProps.NAME: return 'Наименование';
+        }
+    }
 
-        case EmplProps.POSITION: return 'Должность';
+    if (typeOfUnit === UnitTypes.DEPARTMENT) {
+        switch (typeOfParam) {
+            case DeptProps.NAME: return 'Наименование';
+            case DeptProps.PHONE_NUMBER: return 'Тел. номер';
+        }
+    }
+    if (typeOfUnit === UnitTypes.EMPLOYEE) {
+        switch (typeOfParam) {
+            case EmplProps.NAME: return 'ФИО';
+            case EmplProps.ADRESS: return 'Адрес';
+            case EmplProps.POSITION: return 'Должность';
+        }
     }
 }
 

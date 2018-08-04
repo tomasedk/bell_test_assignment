@@ -34,7 +34,7 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
                         <tr>
                             {
                                 getTableHeaderMas(props.typeOfUnit).map((item: any, index: number) => {
-                                    return (<th key={index}> {getName(item)}</th>)
+                                    return (<th key={index}> {getName(props.typeOfUnit, item)}</th>)
                                 })
                             }
                         </tr>

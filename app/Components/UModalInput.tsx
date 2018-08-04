@@ -108,7 +108,7 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
                     <UModalInputCountainer
                         Header={getModalHeader(this.props.modalReducer.showModal, this.props.typeOfUnit, this.state.name, this.props.selectedUnit)}
                         InputType={this.props.modalReducer.showModal}
-                        // InitialMas={getFullMas(this.props.typeOfUnit, this.state)}
+                        typeOfUnit={this.props.typeOfUnit}
                         InitialMas={getFullMasToShow(this.props.typeOfUnit, this.state)}
                         masHead={getTableHeaderMas(this.props.typeOfUnit)}
                         funcInput={this.onModalChangeInput}
