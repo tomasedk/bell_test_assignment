@@ -6,11 +6,10 @@ import { Companies } from '../Components/Companies'
 import { Departments } from '../Components/Departments';
 import { Employees } from '../Components/Employees';
 import { Login } from '../Components/LoginForm';
-import { NavigationBar } from '../Components/NavigationBar';
+import { NavigationBar } from '../Containers/NavigationBar';
 import NotFound from '../Containers/NotFound';
 
 const AppRouter: any = () => (
-
     <Router history={history}>
         <div>
             <NavigationBar />
