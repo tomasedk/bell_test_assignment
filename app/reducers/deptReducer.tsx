@@ -14,7 +14,6 @@ const initialState = {
     }
 };
 export default function deptReducer(state: IStoreDeptState = initialState.state, action: IActionType) {
-    //console.log(JSON.stringify(state.deptData));
     switch (action.type) {
         case `${UnitTypes.DEPARTMENT.toUpperCase()}${UnitActionTypes.EDIT}`:
             let newDeptDataEdit: Array<any> = [];
