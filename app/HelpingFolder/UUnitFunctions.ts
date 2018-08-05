@@ -1,5 +1,6 @@
 import { DeptProps, EmplProps, OrgProps, UnitTypes } from './Consts';
 import { IOrganistion, Units } from './Interfaces';
+import { isNumeric } from './UModalFunctions';
 
 declare function require(path: string): any;
 const uuidv4 = require('uuid/v4');
@@ -99,6 +100,36 @@ export function nextUnit(typeOfUnit: string): string {
 export function instanceOf(object: Units, typeOfUnit: string): object is IOrganistion {
     //console.log(object.discriminator, ' ', DescriminatrTypes.ORGANISATION)
     return object.discriminator === typeOfUnit;
+}
+
+export function getUnitState(thatState: any, curInput: string, valueToSet: string | number) {
+    //console.log('getState! ', thatState, ' ', curInput, ' ', valueToSet);
+    switch (curInput) {
+        case OrgProps.INN:
+            if (isNumeric(valueToSet)) {
+                thatState.inn = +valueToSet;
+            };
+            break;
+
+        case OrgProps.ADRESS:
+            thatState.adress = valueToSet.toString();
+            break;
+
+        case OrgProps.NAME:
+            thatState.name = valueToSet.toString();
+            break;
+
+        case DeptProps.PHONE_NUMBER:
+            if (isNumeric(valueToSet)) {
+                thatState.phone = +valueToSet
+            };
+            break;
+
+        case EmplProps.POSITION:
+            thatState.position = valueToSet.toString();
+            break;
+    }
+    return thatState;
 }
 
 export function masToObj(typeOfUnit: string, mas: Array<string | number>): Units {

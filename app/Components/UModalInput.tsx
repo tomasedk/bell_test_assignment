@@ -6,10 +6,10 @@ import { Dispatch } from 'redux';
 import UModalInputCountainer from '../Containers/UModalInputCountainer'
 
 import { Actions, IDispatchProps } from '../Actions/Actions';
-import { DeptProps, EmplProps, ModalActionTypes, OrgProps } from '../HelpingFolder/Consts';
+import { ModalActionTypes } from '../HelpingFolder/Consts';
 import { IStoreState, Units } from '../HelpingFolder/Interfaces';
-import { getModalFunction, getModalHeader, isNumeric } from '../HelpingFolder/UModalFunctions';
-import { getEmptyMas, getFullMas, getFullMasToShow, getTableHeaderMas, masToObj } from '../HelpingFolder/UUnitFunctions';
+import { getModalFunction, getModalHeader } from '../HelpingFolder/UModalFunctions';
+import { getEmptyMas, getFullMas, getFullMasToShow, getTableHeaderMas, getUnitState, masToObj } from '../HelpingFolder/UUnitFunctions';
 
 interface IStateProps {
     modalReducer: {
@@ -62,18 +62,7 @@ class UModalInput extends React.Component<TProps, IStateLocal> {
         let currentEnv = this;
 
         return function (event: React.FormEvent<HTMLInputElement>) {
-            const tmpVal = event.currentTarget.value;
-            switch (currentInput) {
-                case OrgProps.ID: {currentEnv.setState({ 'id': tmpVal })}; break;
-                case OrgProps.INN: if (isNumeric(tmpVal)) { currentEnv.setState({ 'inn': +tmpVal })}; break;
-                case OrgProps.ADRESS: currentEnv.setState({ 'adress': tmpVal }); break;
-                case OrgProps.NAME: currentEnv.setState({ 'name': tmpVal }); break;
-
-                case DeptProps.ID_ORG: { currentEnv.setState({ 'parent': tmpVal })}; break;
-                case DeptProps.PHONE_NUMBER: if (isNumeric(tmpVal)) { currentEnv.setState({ 'phone': +tmpVal })}; break;
-
-                case EmplProps.POSITION: currentEnv.setState({ 'position': tmpVal }); break;
-            }
+            currentEnv.setState(getUnitState(currentEnv.state, currentInput, event.currentTarget.value));
         }
     };
 
