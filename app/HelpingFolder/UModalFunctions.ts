@@ -22,11 +22,11 @@ export function getBtnLabel(object: string): string {
 export function getModalHeader(ModalType: string, typeOfUnit: string, name_1: string, name_2: Units): string {
     switch (ModalType) { // Это потом раскоментить с (*)
         case ModalActionTypes.ADD:
-            return `Add ${typeOfUnit}: ${name_1}`;
+            return `Add ${typeOfUnit.toLowerCase()}: ${name_1}`;
         case ModalActionTypes.EDIT:
-            return `Edit ${typeOfUnit}: ${name_2.name}`;
+            return `Edit ${typeOfUnit.toLowerCase()}: ${name_2.name}`;
         case ModalActionTypes.DELETE:
-            return `Delete ${typeOfUnit}: ${name_2.name}?`;
+            return `Delete ${typeOfUnit.toLowerCase()}: ${name_2.name}?`;
     }
 }
 

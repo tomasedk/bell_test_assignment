@@ -15,17 +15,17 @@ const initialState = {
 };
 export default function deptReducer(state: IStoreDeptState = initialState.state, action: IActionType) {
     switch (action.type) {
-        case `${UnitTypes.DEPARTMENT.toUpperCase()}${UnitActionTypes.EDIT}`:
+        case `${UnitTypes.DEPARTMENT}${UnitActionTypes.EDIT}`:
             let newDeptDataEdit: Array<any> = [];
             for (let i = 0; i < state.deptData.length; i++) {
                 newDeptDataEdit.push((action.payload.unitIdToEdit === state.deptData[i].id) ? action.payload.newUnit : state.deptData[i]);
             }
             return { ...state, deptData: newDeptDataEdit };
 
-        case `${UnitTypes.DEPARTMENT.toUpperCase()}${UnitActionTypes.ADD}`:
+        case `${UnitTypes.DEPARTMENT}${UnitActionTypes.ADD}`:
             return { ...state, deptData: [...state.deptData, action.payload] };
 
-        case `${UnitTypes.DEPARTMENT.toUpperCase()}${UnitActionTypes.DELETE}`:
+        case `${UnitTypes.DEPARTMENT}${UnitActionTypes.DELETE}`:
             //В payload передается id компании, которую необходимо удалить.
             //Если передается несуществующий id, то ВЕСЬ массив deptData очищается. Этот случай применяется в action.onLogout();
 

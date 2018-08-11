@@ -1,15 +1,12 @@
-import { DeptProps, EmplProps, OrgProps, UnitTypes } from './Consts';
+import { DeptProps, EmplProps, OrgProps, UnitTypeRefs, UnitTypes } from './Consts';
 import { IOrganistion, Units } from './Interfaces';
 import { isNumeric } from './UModalFunctions';
 
-declare function require(path: string): any;
-const uuidv4 = require('uuid/v4');
-
 export function getTableHeaderMas(typeOfUnit: string): Array<any> {
     switch (typeOfUnit) {
-        case (UnitTypes.ORGANISATION): return [/*OrgProps.ID,*/ OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN]; break;
-        case (UnitTypes.DEPARTMENT): return [/*DeptProps.ID,  DeptProps.ID_ORG, */DeptProps.NAME, DeptProps.PHONE_NUMBER]; break;
-        case (UnitTypes.EMPLOYEE): return [/*EmplProps.ID,  EmplProps.ID_DEPT,*/ EmplProps.NAME, EmplProps.ADRESS, EmplProps.POSITION]; break;
+        case (UnitTypes.ORGANISATION): return [/*OrgProps.ID,*/ OrgProps.NAME, OrgProps.ADRESS, OrgProps.INN];
+        case (UnitTypes.DEPARTMENT): return [/*DeptProps.ID,  DeptProps.ID_ORG, */DeptProps.NAME, DeptProps.PHONE_NUMBER];
+        case (UnitTypes.EMPLOYEE): return [/*EmplProps.ID,  EmplProps.ID_DEPT,*/ EmplProps.NAME, EmplProps.ADRESS, EmplProps.POSITION];
     }
 }
 //getTableHeaderMas и getFullMasToShow обязательно должны возвращать массивы одинковой длинны, потому что оба
@@ -42,32 +39,27 @@ export function getEmptyMas(parentId: string, typeOfUnit: string): Array<any> {
     //console.log('Interfaces, returnDisc: ', object, ' ', object.discriminator);
     //console.log('getEmptyMas', typeOfUnit);
     switch (typeOfUnit) {
-        // case UnitTypes.ORGANISATION: return ['', '', '', 0]; //здесь ввести айдишники
-        // case UnitTypes.DEPARTMENT: return ['', 0, '', 0];
-        // case UnitTypes.EMPLOYEE: return ['', 0, '', '', ''];
-        case UnitTypes.ORGANISATION: return [uuidv4(), '', '', 0]; //здесь ввести айдишники
-        case UnitTypes.DEPARTMENT: return [uuidv4(), parentId, '', 0];
-        case UnitTypes.EMPLOYEE: return [uuidv4(), parentId, '', '', ''];
+        //id добавялется уже в Action
+        case UnitTypes.ORGANISATION: return ['', '', '', 0]; //здесь ввести айдишники
+        case UnitTypes.DEPARTMENT: return ['', parentId, '', 0];
+        case UnitTypes.EMPLOYEE: return ['', parentId, '', '', ''];
     }
     return [];
 }
-//Функция возвращает массив, состоящий из названий полей интерфейса
-//по-моему, эта штука не используется
-export function getFields(Unit: any): Array<any> {
-    //console.log('Interfaces, returnFields: ', object, ' ', object.discriminator);
-    switch (Unit.discriminator) {
-        case UnitTypes.ORGANISATION: return ['id', 'name', 'adress', 'inn'];
-        case UnitTypes.DEPARTMENT: return ['id', 'parent', 'name', 'phone'];
-        case UnitTypes.EMPLOYEE: return ['id', 'parent', 'name', 'adress', 'position'];
+
+export function needToLoad(loginReducer: any, typeOfUnit: string) {
+    switch (typeOfUnit) {
+        case UnitTypes.ORGANISATION: return !loginReducer.loadedComp;
+        case UnitTypes.DEPARTMENT: return  !loginReducer.loadedDept;
+        case UnitTypes.EMPLOYEE: return  !loginReducer.loadedEmpl;
     }
-    return [];
 }
 
 export function getName(typeOfUnit: string, typeOfParam: string): string {
 
     if (typeOfUnit === UnitTypes.ORGANISATION) {
         switch (typeOfParam) {
-            case OrgProps.INN: return 'ИНН';
+            case OrgProps.INN: return 'ИНН'; //Вынести в const. Аккуратно и далее тоже
             case OrgProps.ADRESS: return 'Адрес';
             case OrgProps.NAME: return 'Наименование';
         }
@@ -90,15 +82,22 @@ export function getName(typeOfUnit: string, typeOfParam: string): string {
 
 export function nextUnit(typeOfUnit: string): string {
     switch (typeOfUnit) {
-        case (UnitTypes.ORGANISATION): return 'department';
-        case (UnitTypes.DEPARTMENT): return 'employee';
+        case (UnitTypes.ORGANISATION): return UnitTypes.DEPARTMENT;
+        case (UnitTypes.DEPARTMENT): return UnitTypes.EMPLOYEE;
         case (UnitTypes.EMPLOYEE): return '';
+    }
+}
+
+export function getUnitLink(typeOfUnit: string): string {
+    switch (typeOfUnit) {
+        case (UnitTypes.ORGANISATION): return UnitTypeRefs.ORGANISATION;
+        case (UnitTypes.DEPARTMENT): return UnitTypeRefs.DEPARTMENT;
+        case (UnitTypes.EMPLOYEE): return UnitTypeRefs.EMPLOYEE;
     }
 }
 
 //функция проверяет, является ли Объект интерфейса IOrganisation
 export function instanceOf(object: Units, typeOfUnit: string): object is IOrganistion {
-    //console.log(object.discriminator, ' ', DescriminatrTypes.ORGANISATION)
     return object.discriminator === typeOfUnit;
 }
 
@@ -166,7 +165,6 @@ export function masToObj(typeOfUnit: string, mas: Array<string | number>): Units
                 position: mas[4].toString(),
             };
             break;
-
     }
     return newUnit;
 }

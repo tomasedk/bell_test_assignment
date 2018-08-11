@@ -11,6 +11,9 @@ export interface IStoreLoginState {
     loginStatus: boolean;
     loading: boolean;
     userData: { nickname: string, password: string };
+    loadedComp: boolean;
+    loadedDept: boolean;
+    loadedEmpl: boolean;
 }
 
 export interface IOrganistion {

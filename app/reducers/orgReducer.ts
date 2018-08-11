@@ -19,7 +19,7 @@ const initialState = {
 
 export default function orgReducer(state: IStoreOrgState = initialState.state, action: IActionType) {
     switch (action.type) {
-        case `${UnitTypes.ORGANISATION.toUpperCase()}${UnitActionTypes.EDIT}`:
+        case `${UnitTypes.ORGANISATION}${UnitActionTypes.EDIT}`:
             let newOrgDataEdit: Array<any> = [];
             for (let i = 0; i < state.orgData.length; i++) {
                 //console.log('compare: ', +action.payload.unitIdToEdit === state.orgData[i].id)
@@ -28,10 +28,10 @@ export default function orgReducer(state: IStoreOrgState = initialState.state, a
             //console.log('new state of STORE: ', newOrgDataEdit);
             return { ...state, orgData: newOrgDataEdit };
 
-        case `${UnitTypes.ORGANISATION.toUpperCase()}${UnitActionTypes.ADD}`:
+        case `${UnitTypes.ORGANISATION}${UnitActionTypes.ADD}`:
             return { ...state, orgData: [...state.orgData, action.payload] };
 
-        case `${UnitTypes.ORGANISATION.toUpperCase()}${UnitActionTypes.DELETE}`:
+        case `${UnitTypes.ORGANISATION}${UnitActionTypes.DELETE}`:
             //В payload передается id компании, которую необходимо удалить.
             //Если передается несуществующий id, то ВЕСЬ массив orgData очищается. Этот случай применяется в action.onLogout();
 

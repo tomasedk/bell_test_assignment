@@ -62,7 +62,7 @@ const UDashboardContainer: React.SFC<IPassedProps> = (props) => (
                                 <input className="btn btn-outline-primary"
                                     disabled={(!props.loginStatus) || (props.editRow < 0) || (props.editRow >= props.dataForDash.length)}
                                     style={props.typeOfUnit !== UnitTypes.EMPLOYEE ? {} : { display: 'none' }}
-                                    value={`${nextUnit(props.typeOfUnit).toUpperCase()}S`}
+                                    value={`${nextUnit(props.typeOfUnit)}S`}
                                     type="button"
                                     onClick={props.onODE} /></div>
                         </div>

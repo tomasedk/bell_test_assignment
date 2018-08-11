@@ -36,6 +36,7 @@ export enum UnitActionTypes {
     ADD = '_ADD',
     EDIT = '_EDIT',
     DELETE = '_DELETE',
+    LOADED = 'LOADED_FROM_NET',
 }
 
 export enum ModalActionTypes {
@@ -45,8 +46,20 @@ export enum ModalActionTypes {
     HIDE = 'MODAL_HIDE',
 }
 
+// export enum UnitTypes {
+//     ORGANISATION = 'Company',
+//     DEPARTMENT = 'Department',
+//     EMPLOYEE = 'Employee',
+// }
+
 export enum UnitTypes {
-    ORGANISATION = 'Company',
-    DEPARTMENT = 'Department',
-    EMPLOYEE = 'Employee',
+    ORGANISATION = 'COMPANY',
+    DEPARTMENT = 'DEPARTMENT',
+    EMPLOYEE = 'EMPLOYEE',
+}
+
+export enum UnitTypeRefs {
+    ORGANISATION = 'http://www.mocky.io/v2/5b6ea59531000058007819d4',
+    DEPARTMENT = 'http://www.mocky.io/v2/5b6ea6283100002a007819d5',
+    EMPLOYEE = 'http://www.mocky.io/v2/5b6ea65c31000056007819d7',
 }

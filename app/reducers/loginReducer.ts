@@ -1,4 +1,4 @@
-import { AsyncActionTypes, LoginActionTypes } from '../HelpingFolder/Consts';
+import { AsyncActionTypes, LoginActionTypes, UnitActionTypes, UnitTypes } from '../HelpingFolder/Consts';
 import { IActionType, IStoreLoginState } from '../HelpingFolder/Interfaces';
 
 const initialState = {
@@ -10,7 +10,10 @@ const initialState = {
             userData: {
                 nickname: '',
                 password: ''
-            }
+            },
+            loadedComp: false,
+            loadedDept: false,
+            loadedEmpl: false,
         }
     }
 }
@@ -55,6 +58,24 @@ export default function loginReducer(state: IStoreLoginState = initialState.stat
                     nickname: '',
                     password: ''
                 }
+            };
+
+        case `${UnitTypes.ORGANISATION}${UnitActionTypes.LOADED}`:
+            return {
+                ...state,
+                loadedComp: action.payload,
+            };
+
+        case `${UnitTypes.DEPARTMENT}${UnitActionTypes.LOADED}`:
+            return {
+                ...state,
+                loadedDept: action.payload,
+            };
+
+        case `${UnitTypes.EMPLOYEE}${UnitActionTypes.LOADED}`:
+            return {
+                ...state,
+                loadedEmpl: action.payload,
             };
     }
     return state;
