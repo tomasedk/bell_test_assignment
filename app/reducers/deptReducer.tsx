@@ -25,11 +25,11 @@ export default function deptReducer(state: IStoreDeptState = initialState.state,
         case `${UnitTypes.DEPARTMENT}${UnitActionTypes.ADD}`:
             return { ...state, deptData: [...state.deptData, action.payload] };
 
+        //В payload передается id компании, которую необходимо удалить.
+        //Если передается несуществующий id, то ВЕСЬ массив deptData очищается. Этот случай применяется в action.onLogout();
         case `${UnitTypes.DEPARTMENT}${UnitActionTypes.DELETE}`:
-            //В payload передается id компании, которую необходимо удалить.
-            //Если передается несуществующий id, то ВЕСЬ массив deptData очищается. Этот случай применяется в action.onLogout();
-
             let newDeptDataDelete: Array<any> = [];
+
             for (let i = 0; i < state.deptData.length; i++) {
                 if (state.deptData[i].id !== action.payload) newDeptDataDelete.push(state.deptData[i]);
             }

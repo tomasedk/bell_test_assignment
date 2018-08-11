@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IStoreState } from '../HelpingFolder/Interfaces';
 
-declare function require(path: string): any;
-const cat = require('../Sources/cat.png');
-const unknown = require('../Sources/unknown.png');
+//Загрузка изображения. Так как с ошибкой, пусть пока что будет в комментарии
+// declare function require(path: string): any;
+// const cat = require('../Sources/cat.png');
+// const unknown = require('../Sources/unknown.png');
 
 interface IStateProps {
     loginReducer: {
@@ -32,10 +33,10 @@ const NavigationBar: React.SFC<IStateProps> = (props) => (
                         }
                     </ul>
                     <div className="col-sm-3 text-sm-right text-white">{props.loginReducer.userData.nickname || 'username'}</div>
-                    {props.loginReducer.loginStatus ?
+                    {/*props.loginReducer.loginStatus ?
                         <img src={cat} alt="Test" className="rounded-circle" style={{ maxWidth: '40px', height: 'auto', backgroundColor: 'white' }} />
                         : <img src={unknown} alt="Test" className="rounded-circle" style={{ maxWidth: '40px', height: 'auto', backgroundColor: 'white' }} />
-                    }
+                    */}
                 </div>
             </div>
         </div>

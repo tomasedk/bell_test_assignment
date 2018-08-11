@@ -29,27 +29,27 @@ class Departments extends React.Component<TProps, {}> {
 
     constructor(props: any, context: any) {
         super(props, context);
-        //console.log('DepDashboard, constructor, props:', this.props);
         //console.log('match.params', this.props.match.params.id);
     }
 
     render() {
+        //console.log(this.props.orgReducer, ' ', this.props.match.params);
+
         const parent: string = this.props.match.params.id.toString();
         let companyName: string ='UNKNOWN';
-        //console.log(this.props.orgReducer, ' ', this.props.match.params);
+
         for (let i=0;i<this.props.orgReducer.orgData.length;i++) {
             if (this.props.orgReducer.orgData[i].id === parent) {
                 //console.log(this.props.orgReducer.orgData[i].id, ' ', parent);
                 companyName = this.props.orgReducer.orgData[i].name;
             }
         }
-        const Header = `Departments of ${companyName} company.`;
 
+        const Header = `Departments of ${companyName} company.`;
         const mas = this.props.deptReducer.deptData.filter((item) => {
                 return item.parent === parent;
         });
 
-        //console.log('mastoDash', mas);
         return (
             <div>
                 <UDashboard
